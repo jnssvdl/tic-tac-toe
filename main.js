@@ -9,7 +9,11 @@ const Player = (name, symbol) => {
 
 
 const Gameboard = (() => {
-    let gameboard = ['', '', '', '', '', '', '', '', ''];
+    let gameboard = [
+        '', '', '',
+        '', '', '',
+        '', '', ''
+    ];
 
     const getGameboard = () => gameboard;
 
@@ -30,19 +34,31 @@ const Gameboard = (() => {
 
 const DisplayContoller = (() => {
     const cells = document.querySelectorAll('.cell');
-    
-    const displayMove = (Gameboard, player) => {
+
+    const playerX = Player('placeHolderName', 'X');
+    const playerO = Player('placeHolderName', 'O');
+
+    let turn = true;
+
+    const displayMove = () => {
         cells.forEach((cell, index) => {
             cell.addEventListener('click', () => {
-                Gameboard.makeMove(index, player.getSymbol());
-                cell.textContent = Gameboard.getGameboard()[index];
+
+                if (turn) {
+                    Gameboard.makeMove(index, playerX.getSymbol());
+                    cell.textContent = Gameboard.getGameboard()[index];
+                } else {
+                    Gameboard.makeMove(index, playerO.getSymbol());
+                    cell.textContent = Gameboard.getGameboard()[index];
+                }
+
+                turn = !turn;
+
             });
         });
     }
-
     return {displayMove};
 })();
 
 
-const player1 = Player('joe', 'x');
-DisplayContoller.displayMove(Gameboard, player1);
+DisplayContoller.displayMove();
