@@ -20,18 +20,30 @@ const Gameboard = (() => {
 
 const displayController = (() => {
     const cells = document.querySelectorAll('.cell');
-    const state = document.querySelector('#state');
+    const cast = document.querySelector('#cast');
     
     const placeMark = () => {
         cells.forEach((cell, index) => {
             cell.addEventListener('click', () => {
-                if (!gameController.isGameOver()) {
-                    Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
-                    cell.textContent = Gameboard.getGameboard()[index];
-                    state.textContent =  gameController.getResult();
-                }
+                handlePlaceMark(cell, index);
             });
         });
+    };
+
+    function handlePlaceMark(cell, index) {
+        if (!gameController.isGameOver()) {
+            Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
+            cell.textContent = Gameboard.getGameboard()[index];
+            displayCast();
+        }
+    };
+
+    function displayCast() {
+        if (gameController.getResult() === undefined) {
+            cast.textContent = `${gameController.getCurrentPlayer().getName()}'s turn`;
+        } else {
+            cast.textContent =  gameController.getResult();
+        }
     };
 
     return {placeMark};
