@@ -20,20 +20,17 @@ const Gameboard = (() => {
 
 const displayController = (() => {
     const cells = document.querySelectorAll('.cell');
+    const state = document.querySelector('#state');
     
     const placeMark = () => {
         cells.forEach((cell, index) => {
             cell.addEventListener('click', () => {
                 Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
                 cell.textContent = Gameboard.getGameboard()[index];
-                const winner = gameController.checkWinner();
-                if (winner) {
-                    alert(winner);
-                }
+                state.textContent =  gameController.isGameOver();
             });
         });
     };
-
 
     return {placeMark};
 })();
@@ -78,28 +75,26 @@ const gameController = (() => {
         }
     };
 
-    const isDraw = () => {
+    function isDraw() {
         return Gameboard.getGameboard().every(cell => cell !== '');
     };
-    
-    const checkWinner = () => {
-        let winner;
+
+    const isGameOver = () => {
         for (let winningCondition of winningConditions) {
             if (winningCondition.every((i) => playerXMoves.includes(i))) {
-                return "Player X Wins";
+                return 'x win';
             }
             if (winningCondition.every((i) => playerOMoves.includes(i))) {
-                return "Player O Wins";
+                return 'o win';
             }
         }
     
         if (isDraw()) {
-            return "It's a Draw";
+            return 'draw';
         }
- 
     };
 
     displayController.placeMark();
 
-    return {getCurrentPlayer, switchPlayer, checkWinner};
+    return {getCurrentPlayer, switchPlayer, isGameOver};
 })();
