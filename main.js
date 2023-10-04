@@ -25,9 +25,11 @@ const displayController = (() => {
     const placeMark = () => {
         cells.forEach((cell, index) => {
             cell.addEventListener('click', () => {
-                Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
-                cell.textContent = Gameboard.getGameboard()[index];
-                state.textContent =  gameController.isGameOver();
+                if (!gameController.isGameOver()) {
+                    Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
+                    cell.textContent = Gameboard.getGameboard()[index];
+                    state.textContent =  gameController.getResult();
+                }
             });
         });
     };
@@ -46,7 +48,7 @@ const Player = (name, mark) => {
 const gameController = (() => {
     const playerX = Player('brandon', 'x');
     const playerO = Player('daniel', 'o');
-
+    
     const winningConditions = [
         [0, 1, 2],
         [3, 4, 5],
@@ -62,6 +64,8 @@ const gameController = (() => {
     let playerOMoves = [];
 
     let currentPlayer = playerX;
+
+    let gameOver = false;
 
     const getCurrentPlayer = () => currentPlayer;
 
@@ -79,22 +83,29 @@ const gameController = (() => {
         return Gameboard.getGameboard().every(cell => cell !== '');
     };
 
-    const isGameOver = () => {
+    const getResult = () => {
         for (let winningCondition of winningConditions) {
             if (winningCondition.every((i) => playerXMoves.includes(i))) {
-                return 'x win';
+                gameOver = true;
+                return `${playerX.getName()} wins`;
             }
             if (winningCondition.every((i) => playerOMoves.includes(i))) {
-                return 'o win';
+                gameOver = true;
+                return `${playerO.getName()} wins`;
             }
         }
     
         if (isDraw()) {
+            gameOver = true;
             return 'draw';
         }
     };
 
+    const isGameOver = () => {
+        return gameOver;
+    };
+
     displayController.placeMark();
 
-    return {getCurrentPlayer, switchPlayer, isGameOver};
+    return {getCurrentPlayer, switchPlayer, getResult, isGameOver};
 })();
