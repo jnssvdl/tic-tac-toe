@@ -1,13 +1,3 @@
-const Player = (name, symbol) => {
-    const getName = () => name;
-
-    const getSymbol = () => symbol;
-
-
-    return {getName, getSymbol};
-}
-
-
 const Gameboard = (() => {
     let gameboard = [
         '', '', '',
@@ -17,48 +7,62 @@ const Gameboard = (() => {
 
     const getGameboard = () => gameboard;
 
-    const makeMove = (index, symbol) => {
+    const addMark = (index, mark) => {
         if (gameboard[index] === '') {
-            gameboard[index] = symbol;
+            gameboard[index] = mark;
         }
-    }
+    };
 
-    const resetGameboard = () => {
-        gameboard.fill('');
-    }
-
-
-    return {getGameboard, makeMove, resetGameboard};
+    return {getGameboard, addMark};
 })();
 
 
-const DisplayContoller = (() => {
+const displayController = (() => {
     const cells = document.querySelectorAll('.cell');
 
-    const playerX = Player('placeHolderName', 'X');
-    const playerO = Player('placeHolderName', 'O');
-
-    let turn = true;
-
-    const displayMove = () => {
+    // const render = () => {
+    //     cells.forEach((cell, index) => {
+    //         cell.textContent = Gameboard.getGameboard()[index];
+    //     });
+    // };
+    
+    const placeMark = () => {
         cells.forEach((cell, index) => {
             cell.addEventListener('click', () => {
-
-                if (turn) {
-                    Gameboard.makeMove(index, playerX.getSymbol());
-                    cell.textContent = Gameboard.getGameboard()[index];
-                } else {
-                    Gameboard.makeMove(index, playerO.getSymbol());
-                    cell.textContent = Gameboard.getGameboard()[index];
-                }
-
-                turn = !turn;
-
+                Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
+                cell.textContent = Gameboard.getGameboard()[index];
+                // render();
+                gameController.switchPlayer();
             });
         });
-    }
-    return {displayMove};
+    };
+
+
+    return {placeMark};
 })();
 
 
-DisplayContoller.displayMove();
+const Player = (name, mark) => {
+    const getName = () => name;
+    const getMark = () => mark;
+    return {getName, getMark};
+};
+
+
+const gameController = (() => {
+    const playerX = Player('brandon', 'x');
+    const playerO = Player('daniel', 'o');
+    
+    let currentPlayer = playerX;
+
+    const getCurrentPlayer = () => currentPlayer;
+
+    displayController.placeMark();
+    
+    const switchPlayer = () => currentPlayer = currentPlayer === playerX ? playerO : playerX;
+
+    return {
+      getCurrentPlayer,
+      switchPlayer  
+    };
+})();
