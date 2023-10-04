@@ -24,18 +24,18 @@ const displayController = (() => {
     
     const placeMark = () => {
         cells.forEach((cell, index) => {
-            cell.addEventListener('click', () => {
-                handlePlaceMark(cell, index);
-            });
+            handleEventListener(cell, index);
         });
     };
 
-    function handlePlaceMark(cell, index) {
-        if (!gameController.isGameOver()) {
-            Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
-            cell.textContent = Gameboard.getGameboard()[index];
-            displayCast();
-        }
+    function handleEventListener(cell, index) {
+        cell.addEventListener('click', () => {
+            if (!gameController.isGameOver()) {
+                Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
+                cell.textContent = Gameboard.getGameboard()[index];
+                displayCast();
+            }
+        });
     };
 
     function displayCast() {
