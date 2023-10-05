@@ -14,20 +14,27 @@ const Gameboard = (() => {
         }
     };
 
-    return {getGameboard, addMark};
+    const resetGameboard = () => {
+        gameboard.fill('');
+        console.log(gameboard);
+    };
+
+    return {getGameboard, addMark, resetGameboard};
 })();
 
 
 const displayController = (() => {
     const cells = document.querySelectorAll('.cell');
     const cast = document.querySelector('#cast');
+    const restart = document.querySelector('#restart');
+
     
     const placeMark = () => {
         cells.forEach((cell, index) => {
             handleEventListener(cell, index);
         });
     };
-
+    
     function handleEventListener(cell, index) {
         cell.addEventListener('click', () => {
             if (!gameController.isGameOver()) {
@@ -37,7 +44,7 @@ const displayController = (() => {
             }
         });
     };
-
+    
     function displayCast() {
         if (gameController.getResult() === undefined) {
             cast.textContent = `${gameController.getCurrentPlayer().getName()}'s turn`;
@@ -45,6 +52,20 @@ const displayController = (() => {
             cast.textContent =  gameController.getResult();
         }
     };
+    
+    const renderReset = () => {
+        cells.forEach((cell) => {
+            cell.textContent = '';
+        });
+    };
+
+    restart.addEventListener('click', () => {
+        Gameboard.resetGameboard();
+        cast.textContent = '';
+        renderReset();
+        gameController.resetGame();
+    });
+
 
     return {placeMark};
 })();
@@ -78,6 +99,7 @@ const gameController = (() => {
     let currentPlayer = playerX;
 
     let gameOver = false;
+
 
     const getCurrentPlayer = () => currentPlayer;
 
@@ -117,7 +139,15 @@ const gameController = (() => {
         return gameOver;
     };
 
-    displayController.placeMark();
+    const resetGame = () => {
+        playerXMoves = [];
+        playerOMoves = [];
+        currentPlayer = playerX;
+        gameOver = false;
+    };
 
-    return {getCurrentPlayer, switchPlayer, getResult, isGameOver};
+    displayController.placeMark();
+    // displayController.restartGame();
+
+    return {getCurrentPlayer, switchPlayer, getResult, isGameOver, resetGame};
 })();
