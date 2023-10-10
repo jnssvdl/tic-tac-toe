@@ -8,6 +8,18 @@
     <script src="main.js" defer></script>
 </head>
 <body>
+    <div class="input-container">
+        <div class="input">
+            <label for="player-x">Player X</label>
+            <input type="text" id="player-x">
+        </div>
+        <div class="input">
+            <label for="player-o">Player O</label>
+            <input type="text" id="player-o">
+        </div>
+        <button id="play">Play</button>
+    </div>
+
     <div class="gameboard">
         <div class="cell"></div>
         <div class="cell"></div>
@@ -19,7 +31,10 @@
         <div class="cell"></div>
         <div class="cell"></div>
     </div>
-    <div id="cast"></div>
-    <button id="restart">restart</button>
+
+    <div class="container">
+        <div id="caster"></div>
+        <button id="play-again">Play Again</button>
+    </div>
 </body>
 </html>
