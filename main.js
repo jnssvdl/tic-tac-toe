@@ -40,8 +40,9 @@ const displayController = (() => {
     let playerOName;
 
     start.addEventListener('click', () => {
-        playerXName = playerX.value;
-        playerOName = playerO.value;
+        playerXName = playerX.value ? playerX.value : 'X';
+        playerOName = playerO.value ? playerO.value : 'O';
+
         gameController.setPlayersName(playerXName, playerOName);
         start.setAttribute('hidden', true);
         restart.removeAttribute('hidden');
@@ -60,16 +61,27 @@ const displayController = (() => {
     function handleEventListener(cell, index) {
         cell.addEventListener('click', () => {
             if (!gameController.isGameOver()) {
-                Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
-                cell.textContent = Gameboard.getGameboard()[index];
-                displayCaster();
+                if (cell.children.length === 0) {
+                    const currentPlayer = gameController.getCurrentPlayer();
+                    Gameboard.addMark(index, currentPlayer.getMark());
+                    const imageMark = document.createElement('img');
+                    if (currentPlayer.getMark() === 'x') {
+                        imageMark.setAttribute('src', 'assets/x-solid.svg');
+                        imageMark.setAttribute('style', 'width: 80px; height: 80px;');
+                    } else {
+                        imageMark.setAttribute('src', 'assets/circle-outline.svg');
+                        imageMark.setAttribute('style', 'width: 100px; height: 100px;');
+                    }
+                    cell.appendChild(imageMark);
+                    displayCaster();
+                }
             }
         });
     };
     
     function displayCaster() {
         if (gameController.getResult() === undefined) {
-            caster.textContent = `${gameController.getCurrentPlayer().getName()}'s turn`;
+            caster.textContent = `${gameController.getCurrentPlayer().getName()}'s turn.`;
         } else {
             caster.textContent =  gameController.getResult();
         }
@@ -135,6 +147,7 @@ const gameController = (() => {
 
     const getCurrentPlayer = () => currentPlayer;
 
+
     const switchPlayer = (move) => {
         if (currentPlayer === playerX) {
             playerXMoves.push(move);
@@ -153,17 +166,17 @@ const gameController = (() => {
         for (let winningCondition of winningConditions) {
             if (winningCondition.every((i) => playerXMoves.includes(i))) {
                 gameOver = true;
-                return `${playerX.getName()} wins`;
+                return `${playerX.getName()} wins!`;
             }
             if (winningCondition.every((i) => playerOMoves.includes(i))) {
                 gameOver = true;
-                return `${playerO.getName()} wins`;
+                return `${playerO.getName()} wins!`;
             }
         }
     
         if (isDraw()) {
             gameOver = true;
-            return 'draw';
+            return 'Draw!';
         }
     };
 

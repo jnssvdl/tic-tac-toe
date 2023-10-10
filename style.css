@@ -47,7 +47,6 @@ body {
     justify-content: space-around;
     align-items: center;
     /* border: 1px solid black; */
-    gap: 2rem;
     font-size: 1.5rem;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
@@ -113,13 +112,20 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .cell:hover {
     background-color: #9ca3af;
+    transform: scale(1.05);
 }
+
+.cell:active {
+    transform: scale(0.9);
+}
+
+
 
 .bot-container {
     /* border: 1px solid black; */
@@ -134,3 +140,12 @@ body {
     align-items: center;
 }
 
+#o-mark {
+    width: 120px;
+    height: 120px;
+}
+
+#x-mark {
+    width: 100px;
+    height: 100px;
+}
