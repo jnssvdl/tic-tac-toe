@@ -149,3 +149,19 @@ body {
     width: 100px;
     height: 100px;
 }
+
+.link {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+#github-logo {
+    width: 20px;
+    height: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
