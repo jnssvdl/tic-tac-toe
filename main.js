@@ -27,23 +27,26 @@ const displayController = (() => {
     const gameboard = document.querySelector('.gameboard');
     const cells = document.querySelectorAll('.cell');
 
-    const inputContainer = document.querySelector('.input-container');
+    const topContainer = document.querySelector('.top-container');
     const playerX = document.querySelector('#player-x');
     const playerO = document.querySelector('#player-o');
-    const play = document.querySelector('#play');
+    const start = document.querySelector('#start');
 
+    const botContainer = document.querySelector('.bot-container');
     const caster = document.querySelector('#caster');
-    const playAgain = document.querySelector('#play-again');
+    const restart = document.querySelector('#restart');
     
     let playerXName;
     let playerOName;
 
-    play.addEventListener('click', () => {
+    start.addEventListener('click', () => {
         playerXName = playerX.value;
         playerOName = playerO.value;
         gameController.setPlayersName(playerXName, playerOName);
+        topContainer.style.display = 'none';
         gameboard.style.display = 'grid';
-        inputContainer.style.display = 'none';
+        botContainer.style.display = 'flex';
+        displayCaster();
     });
 
     const placeMark = () => {
@@ -57,12 +60,12 @@ const displayController = (() => {
             if (!gameController.isGameOver()) {
                 Gameboard.addMark(index, gameController.getCurrentPlayer().getMark());
                 cell.textContent = Gameboard.getGameboard()[index];
-                displaycaster();
+                displayCaster();
             }
         });
     };
     
-    function displaycaster() {
+    function displayCaster() {
         if (gameController.getResult() === undefined) {
             caster.textContent = `${gameController.getCurrentPlayer().getName()}'s turn`;
         } else {
@@ -76,11 +79,12 @@ const displayController = (() => {
         });
     };
 
-    playAgain.addEventListener('click', () => {
+    restart.addEventListener('click', () => {
         Gameboard.resetGameboard();
         caster.textContent = '';
         renderReset();
         gameController.resetGame();
+        displayCaster();
     });
 
 

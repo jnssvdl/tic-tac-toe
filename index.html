@@ -8,18 +8,21 @@
     <script src="main.js" defer></script>
 </head>
 <body>
-    <div class="input-container">
-        <div class="input">
-            <label for="player-x">Player X</label>
-            <input type="text" id="player-x">
-        </div>
-        <div class="input">
-            <label for="player-o">Player O</label>
-            <input type="text" id="player-o">
-        </div>
-        <button id="play">Play</button>
-    </div>
 
+    <div class="top-container">
+        <div class="player-input">
+            <div class="input">
+                <label for="player-x">Player X</label>
+                <input type="text" id="player-x" placeholder="Name">
+            </div>
+            <div class="input">
+                <label for="player-o">Player O</label>
+                <input type="text" id="player-o" placeholder="Name">
+            </div>
+        </div>
+        <button id="start">Start</button>
+    </div>
+    
     <div class="gameboard">
         <div class="cell"></div>
         <div class="cell"></div>
@@ -28,13 +31,13 @@
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
-        <div class="cell"></div>
+        <div class="cell"></div>    
         <div class="cell"></div>
     </div>
 
-    <div class="container">
+    <div class="bot-container">
         <div id="caster"></div>
-        <button id="play-again">Play Again</button>
+        <button id="restart">Restart</button>
     </div>
 </body>
 </html>

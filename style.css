@@ -1,9 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    background-color: #d4d4d4;
+}
+
+.top-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+.player-input {
+    display: flex;
+    gap: 6rem;
+}
+
+
+.input {
+    border-radius: 0.75rem;
+    background-color: #fafafa;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+    gap: 2rem;
+    font-size: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.input > input {
+    border-radius: 0.375rem;
+    border: 1px solid #dee2e6;
+    background-color: #fafafa;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    width: 100%;
+    outline: none;
+}
+
+#start, #restart {
+    background-color: #fafafa;
+    border-radius: 0.375rem;
+    align-self: center;
+    border: none;
+    padding: 10px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+#start:hover, #restart:hover {
+    background-color: #a3a3a3;
+    color: white;
 }
 
 .gameboard {
@@ -19,4 +77,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.bot-container {
+    display: none;
 }
