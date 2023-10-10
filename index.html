@@ -8,19 +8,21 @@
     <script src="main.js" defer></script>
 </head>
 <body>
+    <div class="header">
+        <h1>Tic-Tac-Toe</h1>
+        <button id="start">Start</button>
+        <button id="restart" hidden>Restart</button>
+    </div>
 
     <div class="top-container">
-        <div class="player-input">
-            <div class="input">
-                <label for="player-x">Player X</label>
-                <input type="text" id="player-x" placeholder="Name">
-            </div>
-            <div class="input">
-                <label for="player-o">Player O</label>
-                <input type="text" id="player-o" placeholder="Name">
-            </div>
+        <div class="input">
+            <label for="player-x">Player X</label>
+            <input type="text" id="player-x" placeholder="Name">
         </div>
-        <button id="start">Start</button>
+        <div class="input">
+            <label for="player-o">Player O</label>
+            <input type="text" id="player-o" placeholder="Name">
+        </div>
     </div>
     
     <div class="gameboard">
@@ -36,8 +38,7 @@
     </div>
 
     <div class="bot-container">
-        <div id="caster"></div>
-        <button id="restart">Restart</button>
+        <h2 id="caster"></h2>
     </div>
 </body>
 </html>

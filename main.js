@@ -43,6 +43,8 @@ const displayController = (() => {
         playerXName = playerX.value;
         playerOName = playerO.value;
         gameController.setPlayersName(playerXName, playerOName);
+        start.setAttribute('hidden', true);
+        restart.removeAttribute('hidden');
         topContainer.style.display = 'none';
         gameboard.style.display = 'grid';
         botContainer.style.display = 'flex';
